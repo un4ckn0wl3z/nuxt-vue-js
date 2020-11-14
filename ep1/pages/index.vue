@@ -1,7 +1,10 @@
 <template>
   <div>
-    <span v-if="canSee"> you can see me</span>
-    <span v-else> you cannot see me</span>
+    <ol>
+      <li v-for="todo in todos" :key="todo.id">
+        {{ todo.text }}
+      </li>
+    </ol>
   </div>
 </template>
 
@@ -9,7 +12,11 @@
 export default {
   data() {
     return {
-      canSee: false,
+      todos: [
+        { id: 1, text: 'Learn JavaScript' },
+        { id: 2, text: 'Learn Vue' },
+        { id: 3, text: 'Build something awesome' },
+      ],
     }
   },
 }
