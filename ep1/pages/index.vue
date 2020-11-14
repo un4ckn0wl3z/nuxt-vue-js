@@ -1,10 +1,7 @@
 <template>
   <div>
-    <ol>
-      <li v-for="todo in todos" :key="todo.id">
-        {{ todo.text }}
-      </li>
-    </ol>
+    <p>{{ message }}</p>
+    <button @click="reverseMessage">Reverse Message</button>
   </div>
 </template>
 
@@ -12,12 +9,13 @@
 export default {
   data() {
     return {
-      todos: [
-        { id: 1, text: 'Learn JavaScript' },
-        { id: 2, text: 'Learn Vue' },
-        { id: 3, text: 'Build something awesome' },
-      ],
+      message: 'Hello Vue.js!',
     }
+  },
+  methods: {
+    reverseMessage() {
+      this.message = this.message.split('').reverse().join('')
+    },
   },
 }
 </script>
