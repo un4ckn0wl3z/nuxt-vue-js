@@ -1,53 +1,27 @@
 <template lang="html">
-  <div>
-    <p>
-      Ask a yes/no question:
-      <input v-model="question" />
-    </p>
-    <br />
-    <p>{{ answer }}</p>
+  <div class="">
+    <h1 :class="[activeClass, errorClass]">Hello World</h1>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import axios from 'axios'
-
 export default {
   data() {
     return {
-      question: '',
-      answer: 'I cannot give you an answer until you ask a question!',
+      isActive: true,
+      activeClass: 'active',
+      errorClass: 'text-dange',
+      classObject: {
+        active: true,
+        'text-danger': true,
+      },
     }
-  },
-  watch: {
-    // whenever question changes, this function will run
-    question(newQuestion, oldQuestion) {
-      this.answer = 'Waiting for you to stop typing...'
-      this.debouncedGetAnswer()
-    },
-  },
-  created() {
-    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
-  },
-  methods: {
-    getAnswer() {
-      if (!this.question.includes('?')) {
-        this.answer = 'Questions usually contain a question mark. ;-)'
-      } else {
-        this.answer = 'Thinking...'
-        axios
-          .get('https://yesno.wtf/api')
-          .then((res) => {
-            this.answer = _.capitalize(res.data.answer)
-          })
-          .catch((err) => {
-            this.answer = 'Error! Could not reach the API. ' + err
-          })
-      }
-    },
   },
 }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+h1.active {
+  color: red;
+}
+</style>
