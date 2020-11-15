@@ -1,30 +1,19 @@
 <template lang="html">
   <div class="">
-    <h1 :style="{ color: 'red' }">Hello World</h1>
-    <ol>
-      <TodoItem
-        v-for="(todo, index) in todos"
-        :key="index"
-        :item="todo"
-      ></TodoItem>
-    </ol>
+    <LoginForm @login-submitted="handleLoginFormSubmitted"></LoginForm>
   </div>
 </template>
 
 <script>
-import TodoItem from '@/components/TodoItem'
+import LoginForm from '@/components/LoginForm'
 export default {
   components: {
-    TodoItem,
+    LoginForm,
   },
-  data() {
-    return {
-      todos: [
-        { id: 1, text: 'Learn JavaScript' },
-        { id: 2, text: 'Learn Vue' },
-        { id: 3, text: 'Build something awesome' },
-      ],
-    }
+  methods: {
+    handleLoginFormSubmitted(username, password) {
+      console.log('indexPage', username, password)
+    },
   },
 }
 </script>
