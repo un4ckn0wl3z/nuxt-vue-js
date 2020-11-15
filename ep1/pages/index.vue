@@ -1,12 +1,10 @@
 <template lang="html">
   <div>
-    <div>{{ msg }}</div>
-    <br />
-    <div v-html="rawHtml"></div>
-    <br />
-    <span :id="spanId">hello</span>
-    <br />
-    <button :disabled="btnDisable">cannot click</button>
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    <p>
+      Computed reversed message method: "{{ reversedMessageMethod('yay') }}"
+    </p>
   </div>
 </template>
 
@@ -14,11 +12,22 @@
 export default {
   data() {
     return {
-      msg: 'Hello World!',
-      rawHtml: '<h1>Hello World!</h1>',
-      spanId: 'hello',
-      btnDisable: true,
+      message: 'hello world',
     }
+  },
+  computed: {
+    // a computed getter
+    reversedMessage() {
+      // `this` points to the vm instance
+      return this.message.split('').reverse().join('')
+    },
+  },
+
+  methods: {
+    reversedMessageMethod(prefix) {
+      // `this` points to the vm instance
+      return prefix + ' ' + this.message.split('').reverse().join('')
+    },
   },
 }
 </script>
