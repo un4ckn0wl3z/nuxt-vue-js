@@ -1,32 +1,50 @@
 <template lang="html">
   <div>
-    <p>Original message: "{{ message }}"</p>
-    <p>Computed reversed message: "{{ reversedMessage }}"</p>
     <p>
-      Computed reversed message method: "{{ reversedMessageMethod('yay') }}"
+      Ask a yes/no question:
+      <input v-model="question" />
     </p>
+    <br />
+    <p>{{ answer }}</p>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+import axios from 'axios'
+
 export default {
   data() {
     return {
-      message: 'hello world',
+      question: '',
+      answer: 'I cannot give you an answer until you ask a question!',
     }
   },
-  computed: {
-    // a computed getter
-    reversedMessage() {
-      // `this` points to the vm instance
-      return this.message.split('').reverse().join('')
+  watch: {
+    // whenever question changes, this function will run
+    question(newQuestion, oldQuestion) {
+      this.answer = 'Waiting for you to stop typing...'
+      this.debouncedGetAnswer()
     },
   },
-
+  created() {
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+  },
   methods: {
-    reversedMessageMethod(prefix) {
-      // `this` points to the vm instance
-      return prefix + ' ' + this.message.split('').reverse().join('')
+    getAnswer() {
+      if (!this.question.includes('?')) {
+        this.answer = 'Questions usually contain a question mark. ;-)'
+      } else {
+        this.answer = 'Thinking...'
+        axios
+          .get('https://yesno.wtf/api')
+          .then((res) => {
+            this.answer = _.capitalize(res.data.answer)
+          })
+          .catch((err) => {
+            this.answer = 'Error! Could not reach the API. ' + err
+          })
+      }
     },
   },
 }
