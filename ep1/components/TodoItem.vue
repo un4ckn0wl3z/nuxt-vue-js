@@ -5,9 +5,6 @@
 <script>
 export default {
   props: ['item'],
-  mounted() {
-    console.log(JSON.stringify(this.item))
-  },
 }
 </script>
 

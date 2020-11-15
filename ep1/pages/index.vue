@@ -1,27 +1,32 @@
 <template lang="html">
   <div class="">
-    <h1 :class="[activeClass, errorClass]">Hello World</h1>
+    <h1 :style="{ color: 'red' }">Hello World</h1>
+    <ol>
+      <TodoItem
+        v-for="(todo, index) in todos"
+        :key="index"
+        :item="todo"
+      ></TodoItem>
+    </ol>
   </div>
 </template>
 
 <script>
+import TodoItem from '@/components/TodoItem'
 export default {
+  components: {
+    TodoItem,
+  },
   data() {
     return {
-      isActive: true,
-      activeClass: 'active',
-      errorClass: 'text-dange',
-      classObject: {
-        active: true,
-        'text-danger': true,
-      },
+      todos: [
+        { id: 1, text: 'Learn JavaScript' },
+        { id: 2, text: 'Learn Vue' },
+        { id: 3, text: 'Build something awesome' },
+      ],
     }
   },
 }
 </script>
 
-<style lang="css" scoped>
-h1.active {
-  color: red;
-}
-</style>
+<style lang="css" scoped></style>
