@@ -80,6 +80,11 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Manga Search',
+          to: '/manga/search',
+        },
       ],
       miniVariant: false,
       right: true,
