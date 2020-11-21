@@ -22,6 +22,16 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        <div exact @click="handleLogoutClicked" style="cursor: pointer">
+          <v-list-item>
+            <v-list-item-action>
+              <v-icon>mdi-minus</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </div>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
@@ -93,6 +103,11 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
     }
+  },
+  methods: {
+    handleLogoutClicked() {
+      this.$auth.logout()
+    },
   },
 }
 </script>
