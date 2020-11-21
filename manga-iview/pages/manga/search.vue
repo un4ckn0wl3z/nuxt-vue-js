@@ -50,11 +50,10 @@ export default {
     }
   },
   methods: {
-    handleSearchMange() {
+    async handleSearchMange() {
       const endpoint = `https://api.jikan.moe/v3/search/anime?q=${this.query}&page=1`
-      axios.get(endpoint).then((res) => {
-        this.results = res.data.results
-      })
+      const res = await axios.get(endpoint)
+      this.results = res.data.results
     },
     handleClearSearchMange() {
       this.results = []
